@@ -206,7 +206,7 @@ def inspect_dir(inputDir, zoom, read_template):
 
     allFiles = tiler.search_dir(inputDir)
 
-    template, readTemplate, separator = tile_utils.parse_template("%s/%s" % (inputDir, read_template))
+    template, readTemplate, separator = tile_utils.parse_template(os.path.join(inputDir, read_template))
 
     allTiles = np.array([i for i in tiler.get_tiles(allFiles, template, separator)])
 
@@ -235,7 +235,7 @@ def stream_dir(inputDir, outputDir, compositezoom, maxzoom, logdir, read_templat
     if allTiles.shape[0] == 0:
         raise ValueError("No tiles were found below that maxzoom")
 
-    _, sceneTemplate, _ = tile_utils.parse_template("%s/%s" % (outputDir, scene_template))
+    _, sceneTemplate, _ = tile_utils.parse_template(os.path.join(outputDir, scene_template))
 
     pool = Pool(workers, global_setup, (inputDir, {
         'maxzoom': maxzoom,
